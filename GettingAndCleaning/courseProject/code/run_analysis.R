@@ -25,14 +25,13 @@ featureNames <- read.table("data/raw/UCI HAR Dataset/features.txt", sep = '',
 colnames(X) <- featureNames$name
 
 #--------------------------
-# 3. Extracts only the measurements on the mean and standard deviation for each 
+# 3. Extract only the measurements on the mean and standard deviation for each 
 #    measurement
 #--------------------------
 
-col_means <- grep("-mean()", colnames(X))
-col_stds  <- grep("-std()", colnames(X))
-cols <- sort(c(col_means, col_stds))
-X_m_sd <- X[,cols]
+m_cols <- grep("-mean()", colnames(X), fixed = TRUE)
+std_cols <- grep("-std()", colnames(X), fixed = TRUE)
+X_m_sd <- subset(X, select = sort(c(m_cols, std_cols)))
 
 #--------------------------
 #4. Uses descriptive activity names to name the activities in the data set

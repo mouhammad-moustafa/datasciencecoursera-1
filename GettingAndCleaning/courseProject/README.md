@@ -1,7 +1,8 @@
 ## Getting and Cleaning Data Course Project
 
 * The project is structured as follows:
-  - [CodeBook.md](): Markdown file describing the variables, the data, and the transformations performed to obtain the tidy dataset
+  - [CodeBook.md](https://github.com/rosariomgomez/datasciencecoursera/blob/master/GettingAndCleaning/courseProject/CodeBook.md):
+    Markdown file describing the variables, the data, and the transformations performed to obtain the tidy dataset
 
   - [code/](https://github.com/rosariomgomez/datasciencecoursera/tree/master/GettingAndCleaning/courseProject/code)
     - downloadData.R: auxiliary script to create the data/ directory and download the raw data
@@ -20,15 +21,16 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 1. Fork/clone the [repository](https://github.com/rosariomgomez/datasciencecoursera)
 
 2. Change the working directory to the courseProject directory  
-```r
-setwd("<your_path_to_the_repo>/GettingAndCleaning/courseProject")
-```
+
+  ```r
+  setwd("<your_path_to_the_repo>/GettingAndCleaning/courseProject")
+  ```
 
 3. Run the run_analysis.R script  
-```r
-source("code/run_analysis.R")
-run_analysis.R
-```
+  ```r
+  source("code/run_analysis.R")
+  run_analysis.R
+  ```
 
 - The data/ folder will be created with two folders:  
   - raw/: will contain the downloaded data for the analysis  

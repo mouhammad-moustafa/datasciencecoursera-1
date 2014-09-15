@@ -48,6 +48,7 @@ featureNames <- read.table("data/raw/UCI HAR Dataset/features.txt", sep = '',
 
 colnames(X) <- featureNames$name
 
+#note: Subject and Activity column names were already set while loading the data
 
 #--------------------------
 # 3. Extract only the measurements on the mean and standard deviation for each 
@@ -66,7 +67,7 @@ ylabels <- read.table("data/raw/UCI HAR Dataset/activity_labels.txt", sep = '',
                       col.names = c('num', 'name'), header = FALSE, 
                       stringsAsFactors = FALSE)
 
-y$Activity <- factor(ylabels$name[y$Activity], ylabels$name)
+y$Activity <- factor(ylabels$name[y$Activity], levels = ylabels$name)
 
 tidy_ds <- cbind(Subject, y, X_m_sd)
 

@@ -7,7 +7,7 @@ The data on the study represent data collected from the accelerometers from the 
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones  
 
 
-## File structure  
+## Project file structure  
 
   - [CodeBook.md](https://github.com/rosariomgomez/datasciencecoursera/blob/master/GettingAndCleaning/courseProject/CodeBook.md):
     Markdown file describing the variables, the data, and the transformations performed to obtain the tidy dataset
@@ -35,9 +35,9 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
   source("code/run_analysis.R")
   ```
 
-Results:  
-- The data/ folder will be created with two folders:  
-  - raw/: will contain the downloaded data for the analysis  
-  - processed/: will contain the tidy data set in the tidy.txt file  
+**- Results:**  
+  - The data/ folder will be created with two folders:  
+    - raw/: will contain the downloaded data for the analysis  
+    - processed/: will contain the tidy data set in the tidy.txt file  
 
 A full description of the performed transformations and the used variables can be found at the [CodeBook](https://github.com/rosariomgomez/datasciencecoursera/blob/master/GettingAndCleaning/courseProject/CodeBook.md) file.

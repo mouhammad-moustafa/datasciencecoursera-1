@@ -36,8 +36,8 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
   ```
 
 **- Results:**  
-  - The data/ folder will be created with two folders:  
-    - raw/: will contain the downloaded data for the analysis  
-    - processed/: will contain the tidy data set in the tidy.txt file  
+The data/ folder will be created with two folders:  
+  - raw/: will contain the downloaded data for the analysis  
+  - processed/: will contain the tidy data set in the tidy.txt file  
 
 A full description of the performed transformations and the used variables can be found at the [CodeBook](https://github.com/rosariomgomez/datasciencecoursera/blob/master/GettingAndCleaning/courseProject/CodeBook.md) file.

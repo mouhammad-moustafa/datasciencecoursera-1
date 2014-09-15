@@ -29,7 +29,6 @@ http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartpho
 3. Run the run_analysis.R script  
   ```r
   source("code/run_analysis.R")
-  run_analysis.R
   ```
 
 - The data/ folder will be created with two folders:  

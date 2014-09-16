@@ -6,7 +6,7 @@ Once we unzip the file, a folder named UCI HAR Dataset is created.
 The following image shows the structure of the new data set and the files used  
 
 ![image](data.png)  
-__image extracted from the class forums__  
+#####_image extracted from the class forums_  
 
 - The activity values were transformed from numerical values (1-6) to a factor variable using the names provided on the activity_labels.txt file  
 

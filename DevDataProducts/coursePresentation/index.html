@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Predicting Boston's real estate prices</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predicting Boston's real estate prices">
+  <meta name="author" content="Rosario Martinez">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Predicting Boston's real estate prices</h1>
+    <h2>Developing Data Products, Coursera</h2>
+    <p>Rosario Martinez<br/>rosario.mgomez@gmail.com</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>1. Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Looking for a new place to live can be a really hard, time consuming (and expensive!) adventure, especially if you move to a new city and you are still learning which district you will fit in. <a href="https://rosariomgomez.shinyapps.io/DevDataProducts/">BostonRE</a> is trying to solve this problem.</p>
+
+<p>We are analyzing the relations between a set of measures and the house prices in the Boston area. Based on them, we build a predictive model that will estimate the price of a house for your input parameters.</p>
+
+<p>The dataset for building this model is the BostonHousing2 from the mlbench library which contains 506 observations with 14 variables from the 1970 census. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>2. Exploratory analysis</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img src="assets/fig/plot1.png" alt="Map"></p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>The number of rooms seems related with price (shape vs size)</li>
+<li>Crime rate seems very correlated with location and price:
+We can identify clusters of data by color (crime rate). </li>
+<li>We also observe that in high crime rate areas (purple), independently of 
+the number of rooms the prices are lower than in other regions.</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>3. Model selection (I)</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Regression tree with all the predictors</h3>
+
+<pre><code class="r">mean((pred1 - testing$cmedv)^2) #RMSE
+</code></pre>
+
+<pre><code>## [1] 29.35
+</code></pre>
+
+<ul>
+<li>Used variables by the model (from summary): rm, lstat, nox and crim</li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>4. Model selection (II) and Conclusions</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <h4>Random Forest:</h4>
+
+<pre><code class="r">mean((pred3 - testing$cmedv)^2) #RMSE
+</code></pre>
+
+<pre><code>## [1] 14.48
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>Random Forest outperforms from the rest of models. </li>
+<li>The number of rooms and the percentage of lower status population are the most significant variables.</li>
+<li>Note: A simple linear model is implemented in the Shiny app in order to easily interact with the user.</li>
+</ul>
+
+<h1>Thanks for reading!!</h1>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='1. Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='2. Exploratory analysis'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='3. Model selection (I)'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='4. Model selection (II) and Conclusions'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

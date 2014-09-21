@@ -1,0 +1,92 @@
+---
+title: "Predict execution mistakes on weight lifting exercise"
+output: html_document
+---
+
+The goal of this project is to build a prediction model that is able to estimate how well a barbell lift exercise is performed based on measures collected from wearable devices.
+The data we will use for this analysis is the **WLE dataset** from the research group [groupware](http://groupware.les.inf.puc-rio.br/har). 
+
+The data set contains information from the accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform 10 repetitions of barbell lifts in 5 different ways:  
+- Class A: exercise performed correctly according to the specifications  
+- Class B: throwing the elbows to the front  
+- Class C: lifting the dumbbell only halfway  
+- Class D: lowering the dumbbell only halfway  
+- Class E: throwing the hips to the front  
+
+These are the classes we will try to predict with the machine learning model we will build.
+
+###1. Loading and cleaning the data
+
+```{r}
+source("code/downloadData.R")
+downloadData()
+df <- read.csv("data/pml-training.csv", na.strings = c("NA",""), stringsAsFactors = FALSE)
+```
+
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+#remove user and time related features
+tidy <- subset(df, select = -c(X, user_name, raw_timestamp_part_1, raw_timestamp_part_2, 
+                              cvtd_timestamp, new_window, num_window))
+
+#remove columns where more than 19000 rows are NAs as it will be useless
+#to impute so many values from so little data left
+dropCols <- which(colSums(is.na(tidy)) > 19000)
+tidy <- subset(tidy, select = -dropCols)
+#convert classe into a factor
+tidy$classe <- as.factor(tidy$classe)
+dim(tidy)
+sum(is.na(tidy))
+```
+
+Build the training and testing datasets from the provided training data:
+```{r, warning=FALSE, message=FALSE}
+library(caret)
+set.seed(1235)
+inTrain  <- createDataPartition(y=tidy$classe, p = 0.7, list = FALSE)
+training <- tidy[inTrain,]
+testing  <- tidy[-inTrain,]
+```
+
+###2. Model description  
+I've trained a Random Forest model because in this case we are not really looking for interpretability but for a high accuracy model. I've used the randomForest method within the randomForest package. This implementation makes use of the rfcv() function which performs cross-validation during the training phase. Therefore, we don't need to create ourselves an specific 3rd set for cross validation.
+
+```{r, warning=FALSE, message=FALSE}
+library(randomForest)
+modelFit <- randomForest(classe ~ ., data = training)
+trainPred <- predict(modelFit, newdata = training)
+testPred <- predict(modelFit, newdata = testing)
+```
+
+###3. Accuracy
+- All the data in the training set was correctly classified.
+```{r}
+sum(trainPred != training$classe)
+```
+
+- Out sample error:
+```{r}
+confMat <- confusionMatrix(testing$classe, testPred)
+confMat$overall[1]
+confMat$table
+```
+
+**The algorithm performs very well in the new data not used for training with a 99.5% of accuracy.**
+
+###4.Testing data
+Before make the predictions, we will perform the same cleaning and feature selection operations we've done in the training set:
+```{r, warning=FALSE}
+df1 <- read.csv("data/pml-testing.csv", na.strings = c("NA",""), stringsAsFactors = FALSE)
+tidy1 <- subset(df1, select = -c(X, user_name, raw_timestamp_part_1, raw_timestamp_part_2, 
+                                 cvtd_timestamp, new_window, num_window))
+
+#select the same columns used in the training set
+tidy1 <- tidy1[,names(tidy1) %in% names(tidy)]
+dim(tidy1)
+sum(is.na(tidy1))
+```
+
+The predicted classes for this new 20 data points are:
+```{r}
+predict(modelFit, newdata=tidy1)
+```

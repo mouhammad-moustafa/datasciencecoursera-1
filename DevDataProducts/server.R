@@ -5,11 +5,11 @@ library(rCharts)
 library(dplyr)
 
 data(BostonHousing2)
-modFit <- lm(medv ~ age + rm, data = BostonHousing2)
+modFit <- lm(cmedv ~ age + rm + crim, data = BostonHousing2)
 
-housePrice <- function(hage, rooms) {
-    dt <- data.frame(age = hage, rm = rooms)
-    predict(modFit, newdata = dt )
+housePrice <- function(crm, hage, rooms) {
+    dt <- data.frame(crim = crm, age = hage, rm = rooms)
+    predict(modFit, newdata = dt ) * 1000
 }
 
 shinyServer(
@@ -18,7 +18,7 @@ shinyServer(
             if (input$submitBut == 0) { "Please, select a town" }
             else {
                 input$submitBut
-                isolate(housePrice(input$age, input$rooms))
+                isolate(housePrice(input$crm, input$age, input$rooms))
             }
         })
         #reactive code returns a function not a df
@@ -36,7 +36,7 @@ shinyServer(
             if (input$submitBut == 0) { }
             else{
                 input$submitBut
-                isolate(summary(town_filter()$medv))
+                isolate(summary(town_filter()$medv) * 1000)
             }
         })
         output$houseMap <- renderMap({

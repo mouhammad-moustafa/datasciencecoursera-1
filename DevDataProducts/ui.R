@@ -13,8 +13,10 @@ shinyUI(navbarPage("BostonRE",
                         h4("Welcome to the BostonRE!"),
                         wellPanel(
                              selectInput('town', "Town name:", choices=towns),
-                             numericInput('rooms', 'Number of rooms', 1, min = 1, max = 50, step = 1),
-                             numericInput('age', 'Years of the house', 0, min = 0, max = 150, step = 1),
+                             numericInput('rooms', 'Number of rooms', 5, min = 1, max = 50, step = 1),
+                             numericInput('age', 'Years of the house', 1, min = 0, max = 150, step = 1),
+                             sliderInput('crm', 'Crime rate by town:', 
+                                         min=0, max=100, value=50),
                              actionButton('submitBut', 'Submit')  
                          ),
                         hr(),
@@ -30,14 +32,11 @@ shinyUI(navbarPage("BostonRE",
                            verbatimTextOutput('prediction'),
                            h4('Price summary in your town search:'),
                            verbatimTextOutput('priceSum'),
-                           h4('Houses location and prices in your town search:')
+                           h4('Houses location and prices in your town search:'),
                            tags$style('.leaflet {width: 200px;}'),
                            showOutput('houseMap', 'leaflet')
                       )
                     )
                  )
-            ),
-           tabPanel('DataSet Info',
-                    p('summary')
-           )
+            )
 ))
